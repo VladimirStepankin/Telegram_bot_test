@@ -1,7 +1,10 @@
 from random import *
 import json
 
-films=[]
+
+films = []
+
+
 def save():
     with open("films.json", "w", encoding="utf-8") as fh:
         fh.write(json.dumps(films, ensure_ascii=False))
@@ -9,19 +12,20 @@ def save():
 
 
 def load():
-    with open("films.json", "r", encoding="utf-8") as fh:
-        films = json.load(fh)
-    print("Фильмотека была успешно загружена")
-    return films
-try:
-    load()
-except:
-    films = []
-    films.append("Матрица")
-    films.append("Солярис")
-    films.append("Властилин колец")
-    films.append("Техасская резня бензопилой")
-    films.append("Санта Барбара")  
+    try:
+        global films
+        with open("films.json", "r", encoding="utf-8") as fh:
+            films = json.load(fh)
+        print("Фильмотека была успешно загружена")
+    except:
+        films = []
+        films.append("Матрица")
+        films.append("Солярис")
+        films.append("Властилин колец")
+        films.append("Техасская резня бензопилой")
+        films.append("Санта Барбара")
+        print("Фильмотека была загружена по умолчанию")
+        print(films)
 
 
 while True:
@@ -29,7 +33,7 @@ while True:
     if command == "/start":
         print("Бот-фильмотека начал свою работу")
     elif command == "/stop":
-        save()
+        # save()
         print("Бот остановил свою работу. Заходите еще, будем рады!")
         break
     elif command == "/all":
